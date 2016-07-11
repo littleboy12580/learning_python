@@ -11,7 +11,9 @@ class Solution(object):
 #下面是使用字典的解法
 def twoSum(self,nums,target):
     dictMap={}
+    li=[]
     for index,value in enumerate(nums):    #python内置的遍历函数，第一个是序号，第二个是值
-        if target - value in dictMap:           #这种方式只会遍历一遍列表
-            return dictMap[target - value],index
-        dictMap[value]=index                  #耗时46ms
+        if (target - value) in dictMap:           #这种方式只会遍历一遍列表
+            li.append([dictMap[target - value], index]) #我对网上解法的改进，考虑了多解的情况
+        dictMap[value]=index
+    return li                              #耗时46ms
