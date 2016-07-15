@@ -5,19 +5,16 @@ class BinTree(object):                            #创建树的类
         self._right = None
 
     def insert(self,value):                       #树的节点插入，左子树小于根节点，右子树大于根节点
-        if self is None:
-            self = BinTree(value)
-        else:
-            if value < self._data:                #左边迭代插入
-                if self._left:
-                    self._left.insert(value)
-                else:
-                    self._left = BinTree(value)
+        if value < self._data:                #左边迭代插入
+            if self._left:
+                self._left.insert(value)
             else:
-                if self._right:                   #右边迭代插入
-                    self._right.insert(value)
-                else:
-                    self._right = BinTree(value)
+                self._left = BinTree(value)
+        else:
+            if self._right:                   #右边迭代插入
+                self._right.insert(value)
+            else:
+                self._right = BinTree(value)
 
     def pre_order(self):                          #前序遍历
         if self:
@@ -66,25 +63,25 @@ class BinTree(object):                            #创建树的类
             return None
 
     def del_value(self,value):                    #删除特定值节点
-        if self.find(value):
-            if value<self._data:
+            if value<self._data and self._left:
                 self._left=self._left.del_value(value)    #左边迭代删除
                 return self
-            elif value>self._data:
+            elif value>self._data and self._right:
                 self._right=self._right.del_value(value)  #右边迭代删除
                 return self
-            elif self._left and self._right:              #如果左右子树都存在，找到右子树里最小的来代替被删除节点
-                tmp=self._right.find_min()._data
-                self._data=tmp
-                self._right=self._right.del_value(tmp)
+            elif value=self._data:
+                if self._left and self._right:              #如果左右子树都存在，找到右子树里最小的来代替被删除节点
+                    tmp=self._right.find_min()._data
+                    self._data=tmp
+                    self._right=self._right.del_value(tmp)
                 return self
-            else:
-                if self._left:
-                    return self._left
                 else:
-                    return self._right
-        else:
-            return self
+                    if self._left:
+                        return self._left
+                    else:
+                        return self._right
+            else:
+                return self
 
 #测试代码
 tree = BinTree(7)
