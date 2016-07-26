@@ -7,8 +7,6 @@ class Solution(object):                                    #解法一：使用�
         usedlist=[]
         for i in s:
             if i in usedlist:                              #判断该字符串是否已经出现过
-                if len(usedlist)>maxlength:
-                    maxlength = len(usedlist)
                 usedlist = usedlist[usedlist.index(i)+1:]  #采用分片构建新字符串
             usedlist.append(i)
             maxlength = max(len(usedlist),maxlength)       #计算最大长度
